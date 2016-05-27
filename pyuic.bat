@@ -1,0 +1,1 @@
+pyrcc5 image.qrc -o image_rc.py && pyuic5 DIGui.ui -o DIGui.py
