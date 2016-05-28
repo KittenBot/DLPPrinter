@@ -2,7 +2,6 @@
 
 ----------
 
-
 ## Deploy Environment: ##
 - python 3.4 (don't use 3.5, don't works with py2exe)
 - pyqt5
@@ -16,6 +15,10 @@
 - Start printing
 - Wait for a long......... time
 - Harvest you model
+
+![](https://raw.githubusercontent.com/KittenBot/DLPPrinter/master/doc/20160528104856.png)
+
+![](https://raw.githubusercontent.com/KittenBot/DLPPrinter/master/doc/20160528105127.jpg)
 
 ## ToDo ##
 - Calibration
