@@ -68,6 +68,8 @@ class MainUI(QWidget):
         #self.ui.btnUp10mm.clicked.connect(self.UP10mm)
         self.ui.btnUp1mm.clicked.connect(self.UP1mm)
         self.ui.btnDown1mm.clicked.connect(self.DOWN1mm)
+        self.ui.btnUp10mm.clicked.connect(self.UP10mm)
+        self.ui.btnDown10mm.clicked.connect(self.DOWN10mm)
         
         self.ui.btnShowCalibration.clicked.connect(self.projWidget.showCalibration)
         self.ui.btnShowBlank.clicked.connect(self.projWidget.showBlank)
@@ -229,22 +231,22 @@ class MainUI(QWidget):
         self.sendCmd("G28\n")
         
     def UP10mm(self):
-        self.sendCmd("G91\nG0 Z10\n")
+        self.sendCmd("G91\nG0 Z10 F200\n")
     
     def UP1mm(self):
-        self.sendCmd("G91\nG0 Z1\n")
+        self.sendCmd("G91\nG0 Z1 F200\n")
     
     def UP01mm(self):
-        self.sendCmd("G91\nG0 Z-0.1\n")
+        self.sendCmd("G91\nG0 Z-0.1 F200\n")
         
     def DOWN10mm(self):
-        self.sendCmd("G91\nG0 Z-10\n")
+        self.sendCmd("G91\nG0 Z-10 F200\n")
     
     def DOWN1mm(self):
-        self.sendCmd("G91\nG0 Z-1\n")
+        self.sendCmd("G91\nG0 Z-1 F200\n")
     
     def DOWN01mm(self):
-        self.sendCmd("G91\nG0 Z-0.1\n")
+        self.sendCmd("G91\nG0 Z-0.1 F200\n")
     
     def closeEvent(self, event):
         if hasattr(self, 'projWidget'):

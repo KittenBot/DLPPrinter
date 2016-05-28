@@ -88,9 +88,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>330</y>
+     <y>340</y>
      <width>191</width>
-     <height>141</height>
+     <height>131</height>
     </rect>
    </property>
    <property name="title">
@@ -164,9 +164,9 @@
    <widget class="QLabel" name="labelExpTime">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>100</x>
       <y>80</y>
-      <width>51</width>
+      <width>81</width>
       <height>20</height>
      </rect>
     </property>
@@ -178,7 +178,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>110</y>
+      <y>100</y>
       <width>81</width>
       <height>20</height>
      </rect>
@@ -190,9 +190,9 @@
    <widget class="QLabel" name="labelLayerHeight">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>100</x>
       <y>110</y>
-      <width>51</width>
+      <width>81</width>
       <height>20</height>
      </rect>
     </property>
@@ -223,7 +223,7 @@
      <x>10</x>
      <y>150</y>
      <width>191</width>
-     <height>181</height>
+     <height>191</height>
     </rect>
    </property>
    <property name="title">
@@ -288,7 +288,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>115200</string>
+     <string>250000</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnUp1mm">
@@ -307,7 +307,7 @@
    <widget class="QPushButton" name="btnDown1mm">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>100</x>
       <y>130</y>
       <width>75</width>
       <height>23</height>
@@ -315,6 +315,32 @@
     </property>
     <property name="text">
      <string>Down 1mm</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnUp10mm">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>160</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Up 10mm</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDown10mm">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>160</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Down 10mm</string>
     </property>
    </widget>
   </widget>
@@ -355,8 +381,8 @@
     <rect>
      <x>20</x>
      <y>10</y>
-     <width>171</width>
-     <height>121</height>
+     <width>181</width>
+     <height>111</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -425,6 +451,19 @@
    </property>
    <property name="checked">
     <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>130</y>
+     <width>171</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>V0.2 (2016/05/28)</string>
    </property>
   </widget>
  </widget>

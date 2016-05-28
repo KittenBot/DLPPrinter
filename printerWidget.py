@@ -57,7 +57,7 @@ class PrinterWidget(QWidget):
     def showCalibration(self):
         if self.svgitem!=None:
             self.scene.removeItem(self.svgitem)
-        self.pix2mm = 100 # todo: 
+        self.pix2mm = 50 # todo: 
         caliDx = int(self.pix2mm)
         caliDy = int(self.pix2mm)
         pen = QPen(Qt.red)
