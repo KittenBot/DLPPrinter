@@ -30,6 +30,7 @@ class PrinterWidget(QWidget):
         p = QPalette()
         p.setColor(QPalette.Background, Qt.red)
         self.setPalette(p)
+        self.viewport = self.graphView.viewport()
         
     def initScene(self):
         rect = QRectF( self.graphView.rect())
@@ -102,7 +103,6 @@ class PrinterWidget(QWidget):
             self.scene.removeItem(self.imgitem)
         pixmap = QPixmap(imgfile)
         self.imgitem = self.scene.addPixmap(pixmap)
-        
 
         
         

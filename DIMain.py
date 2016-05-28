@@ -34,9 +34,10 @@ class MainUI(QWidget):
     
     robotSig = pyqtSignal(str)
     isPrinting = False
+    exptime = 50
+    
     def __init__(self,screens):
-        self.filelist = None
-        self.exptime = 400
+        self.filelist = []
         self.dz = 0.05
         super(MainUI, self).__init__()
         self.screens = screens
@@ -64,11 +65,15 @@ class MainUI(QWidget):
         self.ui.btnPrint.clicked.connect(self.startPrint)
         
         self.ui.btnHomeZ.clicked.connect(self.G28)
-        self.ui.btnUp10mm.clicked.connect(self.UP10mm)
+        #self.ui.btnUp10mm.clicked.connect(self.UP10mm)
         self.ui.btnUp1mm.clicked.connect(self.UP1mm)
+        self.ui.btnDown1mm.clicked.connect(self.DOWN1mm)
         
         self.ui.btnShowCalibration.clicked.connect(self.projWidget.showCalibration)
         self.ui.btnShowBlank.clicked.connect(self.projWidget.showBlank)
+        
+        self.ui.lineHeight.editingFinished.connect(self.calcExptime)
+        self.ui.lineFeedrate.editingFinished.connect(self.calcExptime)
         
         self.ui.sliderLayer.valueChanged.connect(self.layerChanged)
         
@@ -95,13 +100,17 @@ class MainUI(QWidget):
         title = u'DLPPrinter  [%s]' %filename
         self.setWindowTitle(title)
         self.filelist = glob.glob(filename+"/*.png")
-        self.ui.sliderLayer.setMaximum(len(self.filelist)-1)
+        layers = len(self.filelist)
+        print("total layers %d" %(layers))
+        self.ui.sliderLayer.setMinimum(1)
+        self.ui.sliderLayer.setMaximum(layers)
+        self.ui.labelLayer.setText("%d/%d" %(1,len(self.filelist)))
         self.showImage(0)
+        self.calcExptime()
     
     def showImage(self,index):
-        if self.filelist == None:
+        if len(self.filelist) == 0:
             return
-        self.ui.labelLayer.setText("%d/%d" %(index,len(self.filelist)-1))
         self.projWidget.showImage(self.filelist[index])
     
     def initProjectorWindow(self):
@@ -116,41 +125,52 @@ class MainUI(QWidget):
         self.projWidget.showFullScreen()
         self.projWidget.initScene()
         self.projWidget.showCalibration()
+        self.ui.btnShowCalibration.setEnabled(True)
+        self.ui.btnShowBlank.setEnabled(True)
         
     def layerChanged(self):
-        if self.filelist == None:
+        if len(self.filelist) == 0:
             return
         layer = int(self.ui.sliderLayer.value())
-        self.ui.labelLayer.setText("%d/%d" %(layer,len(self.filelist)-1))
-        self.projWidget.showImage(self.filelist[layer])
+        self.ui.labelLayer.setText("%d/%d" %(layer,len(self.filelist)))
+        self.projWidget.showImage(self.filelist[layer-1])
 
     def printModelThread(self):
-        if self.filelist == None:
+        if len(self.filelist) == 0:
             return
         self.isPrinting = True
-        self.exptime = float(self.ui.lineExpTime.text())/1000.0
-        while not self.q.empty():
-            self.q.get()
         numLayers = len(self.filelist)
         posZ = 0
         self.ui.btnPrint.setText("Stop")
-        for layer in range(numLayers):
-            print("printing layer",layer)
-            # 1 show layer image
-            self.robotSig.emit("layer%d" %layer)
-            self.projWidget.showImage(self.filelist[layer])
-            time.sleep(self.exptime)
-            self.robotSig.emit("blank")
-            # 2 step move z axis
-            posZ+=self.dz
-            movement = "G1 Z%f\n" %(posZ)
-            self.sendCmd(movement)
-            self.q.get()
+        delaytime = self.exptime/1000
+        height = float(self.ui.lineHeight.text())
+        feedrate = float(self.ui.lineFeedrate.text())
+        
+        if self.ui.radioDown.isChecked():
+            height=-height
             
+        Gcode = "G1 Z%f F%f\n" %(height,feedrate)
+        self.sendCmd(Gcode)
+        for layer in range(numLayers):
+            self.robotSig.emit("layer%d" %layer)
+            time.sleep(delaytime)
+            posZ+=self.dz
             if self.isPrinting == False:
                 print("print end")
-                return
-
+                break
+        self.robotSig.emit("finished")
+        
+    def calcExptime(self):
+        if len(self.filelist) == 0:
+            return
+        layers = len(self.filelist)
+        height = float(self.ui.lineHeight.text())
+        feedrate = float(self.ui.lineFeedrate.text())
+        layerHeight = height/layers
+        self.ui.labelLayerHeight.setText("%04f" %layerHeight)
+        self.exptime = layerHeight/(feedrate/60)*1000
+        self.ui.labelExpTime.setText("%04f" %self.exptime)
+        
     def startPrint(self):
         if self.isPrinting==False:
             self.printThread = WorkInThread(self.printModelThread)

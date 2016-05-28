@@ -39,6 +39,9 @@
     <string>投影仪控制</string>
    </property>
    <widget class="QPushButton" name="btnShowBlank">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -52,6 +55,9 @@
     </property>
    </widget>
    <widget class="QPushButton" name="btnShowCalibration">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -82,9 +88,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>350</y>
+     <y>330</y>
      <width>191</width>
-     <height>111</height>
+     <height>141</height>
     </rect>
    </property>
    <property name="title">
@@ -100,10 +106,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>曝光延时（毫秒）</string>
+     <string>打印高度(mm)</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineExpTime">
+   <widget class="QLineEdit" name="lineHeight">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -113,7 +119,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>2000</string>
+     <string>100</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -126,10 +132,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>层厚（毫米）</string>
+     <string>打印速度(mm/min)</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineLayerHeight">
+   <widget class="QLineEdit" name="lineFeedrate">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -139,11 +145,66 @@
      </rect>
     </property>
     <property name="text">
-     <string>0.05</string>
+     <string>10</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>每一层时间(ms)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelExpTime">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>80</y>
+      <width>51</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>层厚(mm)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelLayerHeight">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>110</y>
+      <width>51</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
   <widget class="QPushButton" name="btnPrint">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>630</x>
@@ -162,7 +223,7 @@
      <x>10</x>
      <y>150</y>
      <width>191</width>
-     <height>191</height>
+     <height>181</height>
     </rect>
    </property>
    <property name="title">
@@ -204,6 +265,32 @@
      <string>Connect</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="btnHomeZ">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ZHome</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineBaud">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>115200</string>
+    </property>
+   </widget>
    <widget class="QPushButton" name="btnUp1mm">
     <property name="geometry">
      <rect>
@@ -220,8 +307,8 @@
    <widget class="QPushButton" name="btnDown1mm">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>160</y>
+      <x>90</x>
+      <y>130</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -230,67 +317,21 @@
      <string>Down 1mm</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnHomeZ">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>100</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ZHome</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnUp10mm">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>130</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Up 10mm</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnDown10mm">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>160</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Down 10mm</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineBaud">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>50</y>
-      <width>111</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>115200</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QGraphicsView" name="graphicsView">
    <property name="geometry">
     <rect>
      <x>210</x>
      <y>10</y>
-     <width>540</width>
-     <height>480</height>
+     <width>551</width>
+     <height>481</height>
     </rect>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
    </property>
   </widget>
   <widget class="QSlider" name="sliderLayer">
@@ -301,6 +342,9 @@
      <width>541</width>
      <height>19</height>
     </rect>
+   </property>
+   <property name="minimum">
+    <number>1</number>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
@@ -338,14 +382,49 @@
   <widget class="QLabel" name="labelLayer">
    <property name="geometry">
     <rect>
-     <x>460</x>
-     <y>520</y>
-     <width>54</width>
-     <height>12</height>
+     <x>543</x>
+     <y>510</y>
+     <width>201</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
     <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="radioDown">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>520</y>
+     <width>89</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>向下打印</string>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="radioUp">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>520</y>
+     <width>89</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>向上打印</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
    </property>
   </widget>
  </widget>
